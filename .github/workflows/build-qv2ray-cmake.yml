@@ -50,14 +50,14 @@ jobs:
         run: |
           [ ${{ matrix.cross_os }} == public_res ] || ./libs/get_source.sh
       - name: Build golang parts
-        if: steps.cache-common.outputs.cache-hit != 'true'
+        #if: steps.cache-common.outputs.cache-hit != 'true'
         shell: bash
         run: |
           [ ${{ matrix.cross_os }} == public_res ] || GOOS=${{ matrix.cross_os }} GOARCH=${{ matrix.cross_arch }} ./libs/build_go.sh
           [ ${{ matrix.cross_os }} == public_res ] || exit 0
           ./libs/build_public_res.sh
       - name: Tar files
-        if: steps.cache-common.outputs.cache-hit != 'true'
+        #if: steps.cache-common.outputs.cache-hit != 'true'
         run: tar czvf artifacts.tgz ./deployment
       - name: Uploading Artifact
         uses: actions/upload-artifact@master
