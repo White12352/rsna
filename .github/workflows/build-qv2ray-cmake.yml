@@ -208,18 +208,18 @@ jobs:
       #    ####
       #    sudo alien -r -c nekoray*.deb
       #    sudo mv nekoray-*.rpm $version_standalone-redhat-x64.rpm
-      #- name: Pack Arch
-        #if: github.event.inputs.publish != 'y'
-        #run: |
-          #source libs/env_deploy.sh
-          #find . -name artifacts.tgz | xargs -n1 tar xvzf
-          #cd deployment
-          #mkdir -p nekoray
-          #cp $version_standalone-linux64.zip nekoray/nekoray.zip
+      - name: Pack Arch
+        if: github.event.inputs.publish != 'y'
+        run: |
+          source libs/env_deploy.sh
+          find . -name artifacts.tgz | xargs -n1 tar xvzf
+          cd deployment
+          mkdir -p nekoray
+          cp $version_standalone-linux64.zip nekoray/nekoray.zip
           ####
-          #bash ../libs/package_arch.sh ${{ github.event.inputs.tag }}
-          #sudo mv nekoray/nekoray.pkg.tar.zst ./$version_standalone-linux64.pkg.tar.zst
-          #sudo rm -rf nekoray
+          bash ../libs/package_arch.sh ${{ github.event.inputs.tag }}
+          sudo mv nekoray/nekoray.pkg.tar.zst ./$version_standalone-linux64.pkg.tar.zst
+          sudo rm -rf nekoray
       - name: Pack AppImage
         run: |
           source libs/env_deploy.sh
